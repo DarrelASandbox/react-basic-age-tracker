@@ -7,14 +7,18 @@ const AddUser = (props) => {
   const { name, age } = formData;
 
   const inputHandler = (e) =>
-    setFormData({ ...formData, [e.target.id]: e.target.value });
+    setFormData({
+      ...formData,
+      id: crypto.getRandomValues(new Uint32Array(10)),
+      [e.target.id]: e.target.value,
+    });
 
   const addUserHandler = (e) => {
     e.preventDefault();
     if (name.trim().length === 0 || age.trim().length === 0) return;
     if (+age < 1) return;
 
-    console.log(formData);
+    props.onAddUser(formData);
     setFormData({ name: '', age: '' });
   };
 
